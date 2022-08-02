@@ -24,7 +24,8 @@
         <activity
             android:name=".activity.PesquisarActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MainActicity"/>
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
