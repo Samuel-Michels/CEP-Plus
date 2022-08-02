@@ -12,6 +12,8 @@ public class PostsCep {
              ddd,
              siafi;
 
+     private Long id;
+
     public String getCep() {
         return cep;
     }
@@ -90,5 +92,13 @@ public class PostsCep {
 
     public void setSiafi(String siafi) {
         this.siafi = siafi;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

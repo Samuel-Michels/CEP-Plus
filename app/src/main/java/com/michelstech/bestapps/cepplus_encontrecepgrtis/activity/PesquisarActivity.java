@@ -2,15 +2,19 @@ package com.michelstech.bestapps.cepplus_encontrecepgrtis.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.michelstech.bestapps.cepplus_encontrecepgrtis.R;
 import com.michelstech.bestapps.cepplus_encontrecepgrtis.api.EndpointCep;
+import com.michelstech.bestapps.cepplus_encontrecepgrtis.helper.EnderecosSalvosDAO;
 import com.michelstech.bestapps.cepplus_encontrecepgrtis.model.PostsCep;
 
 import retrofit2.Call;
@@ -22,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PesquisarActivity extends AppCompatActivity {
     EditText editNumeroCep;
     Button buttonPesquisar;
+    ImageButton buttonSalvar, buttonCompartilhar, buttonPesquisarMaps;
     TextView textCepResultado,
             textLogradouroResultado,
             textComplementoResultado,
@@ -33,6 +38,8 @@ public class PesquisarActivity extends AppCompatActivity {
             textGiaResultado,
             textSiafiResultado;
 
+    PostsCep postsCep;
+
     private Retrofit retrofit;
 
     String urlCep = "https://viacep.com.br/ws/";
@@ -42,10 +49,15 @@ public class PesquisarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pesquisar);
 
+        PostsCep postsCep = new PostsCep();
+
         //indexando conteudo da activity
         editNumeroCep = findViewById(R.id.editNumeroCep);
         buttonPesquisar = findViewById(R.id.buttonPesquisar);
 
+        buttonSalvar = findViewById(R.id.buttonSalvar);
+        buttonCompartilhar = findViewById(R.id.buttonCompartilhar);
+        buttonPesquisarMaps = findViewById(R.id.buttonPesquisarMaps);
 
         textCepResultado = findViewById(R.id.textCepResultado);
         textLogradouroResultado = findViewById(R.id.textLogradouroResultado);
@@ -71,6 +83,43 @@ public class PesquisarActivity extends AppCompatActivity {
 
             }
         });
+
+        buttonSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favoritarCep();
+            }
+        });
+
+        buttonCompartilhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String stringCompartilhar = textCepResultado.getText().toString()+", "+textComplementoResultado.getText().toString() +", "+textLogradouroResultado.getText().toString()
+                        +", "+textBairroResultado.getText().toString()+", "+textLocalidadeResultado.getText().toString()+" - "+textUfResultado.getText().toString();
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, stringCompartilhar);
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+            }
+        });
+
+        buttonPesquisarMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String stringCompartilhar = textLogradouroResultado.getText().toString()
+                        +" - "+textBairroResultado.getText().toString()+", "+textLocalidadeResultado.getText().toString()+" - "+textUfResultado.getText().toString();
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + stringCompartilhar);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
+
     }
 
 
@@ -118,7 +167,28 @@ public class PesquisarActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    public void favoritarCep(){
+
+        if (!textCepResultado.getText().toString().isEmpty()){
+            EnderecosSalvosDAO enderecosSalvosDAO = new EnderecosSalvosDAO(getApplicationContext());
+            PostsCep postsCep = new PostsCep();
+
+            postsCep.setCep(textCepResultado.getText().toString());
+            postsCep.setLogradouro(textLogradouroResultado.getText().toString());
+            postsCep.setComplemento(textComplementoResultado.getText().toString());
+            postsCep.setBairro(textBairroResultado.getText().toString());
+            postsCep.setLocalidade(textLocalidadeResultado.getText().toString());
+            postsCep.setUf(textUfResultado.getText().toString());
+            postsCep.setIbge(textIbgeResultado.getText().toString());
+            postsCep.setDdd(textDddResultado.getText().toString());
+            postsCep.setGia(textGiaResultado.getText().toString());
+            postsCep.setSiafi(textSiafiResultado.getText().toString());
+
+            enderecosSalvosDAO.salvar(postsCep);
+
+        }
     }
 
 }

@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirTelaPesquisa(View view){startActivity(new Intent(getApplicationContext(), PesquisarActivity.class));}
-    public void abrirTelaFavorito(View view){startActivity(new Intent(getApplicationContext(), PesquisarActivity.class));}
-    public void abrirTelaSaibaMais(View view){startActivity(new Intent(getApplicationContext(), PesquisarActivity.class));}
+    public void abrirTelaFavorito(View view){startActivity(new Intent(getApplicationContext(), FavoritoActivity.class));}
+    public void abrirTelaSaibaMais(View view){startActivity(new Intent(getApplicationContext(), SaibaMaisActivity.class));}
 
 }

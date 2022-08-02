@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/textCep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cep:"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textLocalidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Localidade"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textUf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uf"
+        android:textSize="14sp" />
+
+</LinearLayout>

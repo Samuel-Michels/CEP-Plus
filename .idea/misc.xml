@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/activity_favorito.xml" value="0.12588652482269502" />
-        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/activity_main.xml" value="0.12588652482269502" />
+        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.136" />
+        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/drawable/imagebuttonbg.xml" value="0.2255" />
+        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/drawable/lista_favoritos_adapter.xml" value="0.178" />
+        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/activity_favorito.xml" value="0.25" />
+        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/activity_pesquisar.xml" value="0.25" />
-        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/activity_saiba_mais.xml" value="0.13272543059777103" />
+        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/activity_saiba_mais.xml" value="0.2" />
+        <entry key="..\:/Users/samuel.michels/AndroidStudioProjects/CEPPlusEncontreCepGrtis/app/src/main/res/layout/lista_cep_favorito.xml" value="0.33" />
       </map>
     </option>
   </component>
