@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,21 +11,31 @@
         android:id="@+id/textCep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cep:"
-        android:textSize="20sp" />
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="5dp"
+        android:text="12345-678"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textLocalidade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
         android:text="Localidade"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textCep"
+        app:layout_constraintStart_toEndOf="@+id/textCep" />
 
     <TextView
         android:id="@+id/textUf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
         android:text="Uf"
-        android:textSize="14sp" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textLocalidade"
+        app:layout_constraintStart_toEndOf="@+id/textLocalidade" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

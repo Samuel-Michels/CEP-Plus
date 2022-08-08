@@ -76,6 +76,7 @@
             android:onClick="abrirTelaPesquisa"
             android:src="@drawable/ic_baseline_search_24"
             fab:fab_colorNormal="@color/AzulCorreios"
+            fab:fab_colorPressed="@color/AzulCorreios"
             fab:fab_label="Pesquisar"
             fab:fab_size="mini" />
 
@@ -86,6 +87,7 @@
             android:onClick="abrirTelaFavorito"
             android:src="@drawable/ic_baseline_star_24"
             fab:fab_colorNormal="@color/AzulCorreios"
+            fab:fab_colorPressed="@color/AzulCorreios"
             fab:fab_label="Favoritos"
             fab:fab_size="mini" />
 
@@ -96,6 +98,7 @@
             android:onClick="abrirTelaSaibaMais"
             android:src="@drawable/ic_baseline_more_24"
             fab:fab_colorNormal="@color/AzulCorreios"
+            fab:fab_colorPressed="@color/AzulCorreios"
             fab:fab_label="Saiba Mais"
             fab:fab_size="mini" />
 

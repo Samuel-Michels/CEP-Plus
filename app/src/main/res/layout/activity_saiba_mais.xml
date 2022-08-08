@@ -25,7 +25,7 @@
         android:layout_width="347dp"
         android:layout_height="287dp"
         android:layout_marginTop="8dp"
-        android:text="Nós da Michels Tech Developers agradecemos por ter baixado nosso aplicativo, estamos constantemente focados em lhe auxiliar com nossas soluções!\n \n De maneira muito simplificada com nosso aplicativo é possível encontrar informações referente a um app;\n\n  Caso tenha dúvidas ou sugestões, fale conosco atráves do nosso email:"
+        android:text="Nós da Michels Tech Developers agradecemos por ter baixado nosso aplicativo, estamos constantemente focados em lhe auxiliar com nossas soluções!\n \n De maneira muito simplificada com nosso aplicativo é possível encontrar informações referente a um CEP;\n\n  Caso tenha dúvidas ou sugestões, fale conosco atráves do nosso email:"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,35 +38,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:autoLink="email"
-        android:text="mail@mail.com"
+        android:text="michelstechdeveloper@gmail.com"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
-        android:text="Nos\n Avalie"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="60dp"
-        android:text="Mais\nApps"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
         app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

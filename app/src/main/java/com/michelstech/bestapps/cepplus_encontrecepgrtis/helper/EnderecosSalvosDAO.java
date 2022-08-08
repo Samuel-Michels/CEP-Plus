@@ -71,14 +71,29 @@ public class EnderecosSalvosDAO implements IEnderecosSalvosDAO{
 
             Long id = c.getLong(c.getColumnIndex("id"));
             String cep = c.getString(c.getColumnIndex("cep"));
+            String logradouro = c.getString(c.getColumnIndex("logradouro"));
+            String complemento = c.getString(c.getColumnIndex("complemento"));
+            String bairro = c.getString(c.getColumnIndex("bairro"));
             String localidade = c.getString(c.getColumnIndex("localidade"));
             String uf = c.getString(c.getColumnIndex("uf"));
+            String ibge = c.getString(c.getColumnIndex("codibge"));
+            String ddd = c.getString(c.getColumnIndex("ddd"));
+            String gia = c.getString(c.getColumnIndex("codgia"));
+            String siafi = c.getString(c.getColumnIndex("codsiafi"));
 
 
             postsCep.setId(id);
             postsCep.setCep(cep);
             postsCep.setLocalidade(localidade);
             postsCep.setUf(uf);
+            postsCep.setLogradouro(logradouro);
+            postsCep.setIbge(ibge);
+            postsCep.setDdd(ddd);
+            postsCep.setGia(gia);
+            postsCep.setSiafi(siafi);
+            postsCep.setBairro(bairro);
+            postsCep.setComplemento(complemento);
+
             tarefas.add(postsCep);
 
         }

@@ -22,6 +22,7 @@ import com.michelstech.bestapps.cepplus_encontrecepgrtis.helper.EnderecosSalvosD
 import com.michelstech.bestapps.cepplus_encontrecepgrtis.model.PostsCep;
 import com.michelstech.bestapps.cepplus_encontrecepgrtis.helper.RecyclerItemClickListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class FavoritoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorito);
 
+        EnderecosSalvosDAO enderecosSalvosDAO = new EnderecosSalvosDAO(getApplicationContext());
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         recyclerView.addOnItemTouchListener(
@@ -45,12 +48,36 @@ public class FavoritoActivity extends AppCompatActivity {
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view,int position) {
-                                Toast.makeText(getApplicationContext(),"click",Toast.LENGTH_SHORT).show();
+                                PostsCep tarefaSelecionada = listarCepFavoritos.get(position);
+                                //Envia tarepara para a activity
+                                Intent intent = new Intent(FavoritoActivity.this, PesquisarActivity.class);
+                                intent.putExtra("tarefaSelecionada",tarefaSelecionada);
+
+                                startActivity(intent);
                             }
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                Toast.makeText(getApplicationContext(),"Long click",Toast.LENGTH_SHORT).show();
+                                //Recuperando Tarefa
+                                PostsCep tarefaSelecionada = listarCepFavoritos.get(position);
+
+                                //Configurando Caixa de Alerta
+                                AlertDialog.Builder alert = new AlertDialog.Builder(FavoritoActivity.this);
+
+                                alert.setTitle("Exclusão");
+                                alert.setMessage("Deseja excluir: "+tarefaSelecionada.getCep()+" ?");
+
+                                alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        EnderecosSalvosDAO enderecosSalvosDAO = new EnderecosSalvosDAO(getApplicationContext());
+                                        enderecosSalvosDAO.deletar(tarefaSelecionada);
+                                        carregarListaFavorito();
+                                    }
+                                });
+                                alert.setNegativeButton("Não",null);
+                                alert.create();
+                                alert.show();
                             }
 
                             @Override
@@ -76,7 +103,7 @@ public class FavoritoActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        //recyclerView.addItemDecoration( new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        recyclerView.addItemDecoration( new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerView.setAdapter(adapter);
 
 

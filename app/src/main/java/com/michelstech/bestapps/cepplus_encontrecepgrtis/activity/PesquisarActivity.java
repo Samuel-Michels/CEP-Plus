@@ -36,9 +36,20 @@ public class PesquisarActivity extends AppCompatActivity {
             textIbgeResultado,
             textDddResultado,
             textGiaResultado,
-            textSiafiResultado;
+            textSiafiResultado,
+            textInformativo;
 
-    PostsCep postsCep;
+    /*
+    * estadoPesquisa
+    *
+    * 0: Não pesquisado, não permite Favoritar ou compartilhar
+    * 1: Permite compartilhar e Favoritar
+    * 2: Parmite compartilhar somente(Item já foi Favoritado)
+    * */
+    int estadoPesquisa = 0;
+
+
+    PostsCep tarefaAtual;
 
     private Retrofit retrofit;
 
@@ -50,6 +61,7 @@ public class PesquisarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pesquisar);
 
         PostsCep postsCep = new PostsCep();
+
 
         //indexando conteudo da activity
         editNumeroCep = findViewById(R.id.editNumeroCep);
@@ -69,6 +81,7 @@ public class PesquisarActivity extends AppCompatActivity {
         textDddResultado = findViewById(R.id.textDddResultado);
         textGiaResultado = findViewById(R.id.textGiaResultado);
         textSiafiResultado = findViewById(R.id.textSiafiResultado);
+        textInformativo = findViewById(R.id.textInformativo);
 
         buttonPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,38 +100,78 @@ public class PesquisarActivity extends AppCompatActivity {
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favoritarCep();
+                if (estadoPesquisa == 1){
+                    favoritarCep();
+                    Toast.makeText(getApplicationContext(),"★ CEP Favoritado! ★", Toast.LENGTH_SHORT).show();
+                } else if (estadoPesquisa == 0){
+                    Toast.makeText(getApplicationContext(),"Não tem dados para compartilhar, pesquise um CEP antes!", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getApplicationContext(),"CEP já foi Favoritado!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         buttonCompartilhar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (estadoPesquisa > 0) {
+                    String stringCompartilhar = textCepResultado.getText().toString() + ", " + textComplementoResultado.getText().toString() + ", " + textLogradouroResultado.getText().toString()
+                            + ", " + textBairroResultado.getText().toString() + ", " + textLocalidadeResultado.getText().toString() + " - " + textUfResultado.getText().toString();
 
-                String stringCompartilhar = textCepResultado.getText().toString()+", "+textComplementoResultado.getText().toString() +", "+textLogradouroResultado.getText().toString()
-                        +", "+textBairroResultado.getText().toString()+", "+textLocalidadeResultado.getText().toString()+" - "+textUfResultado.getText().toString();
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,stringCompartilhar);
+                    sendIntent.setType("text/plain");
 
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, stringCompartilhar);
-                sendIntent.setType("text/plain");
-
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
+                    Intent shareIntent = Intent.createChooser(sendIntent,null);
+                    startActivity(shareIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(),"Não tem dados para compartilhar, pesquise um CEP antes!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         buttonPesquisarMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringCompartilhar = textLogradouroResultado.getText().toString()
-                        +" - "+textBairroResultado.getText().toString()+", "+textLocalidadeResultado.getText().toString()+" - "+textUfResultado.getText().toString();
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + stringCompartilhar);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
+                if (estadoPesquisa>0) {
+                    String stringCompartilhar = textLogradouroResultado.getText().toString()
+                            + " - " + textBairroResultado.getText().toString() + ", " + textLocalidadeResultado.getText().toString() + " - " + textUfResultado.getText().toString();
+                    Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + stringCompartilhar);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW,gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);
+                } else {
+                Toast.makeText(getApplicationContext(),"Não tem dados para compartilhar, pesquise um CEP antes!", Toast.LENGTH_SHORT).show();
+            }
             }
         });
+
+        buttonPesquisar.setVisibility(View.VISIBLE);
+        editNumeroCep.setVisibility(View.VISIBLE);
+        textInformativo.setVisibility(View.VISIBLE);
+
+        //Tratando informação vindo da lista de Favorito!
+        tarefaAtual = (PostsCep) getIntent().getSerializableExtra("tarefaSelecionada");
+
+        if (tarefaAtual != null){
+            textCepResultado.setText(tarefaAtual.getCep());
+            textLogradouroResultado.setText(tarefaAtual.getLogradouro());
+            textComplementoResultado.setText(tarefaAtual.getComplemento());
+            textBairroResultado.setText(tarefaAtual.getBairro());
+            textLocalidadeResultado.setText(tarefaAtual.getLocalidade());
+            textUfResultado.setText(tarefaAtual.getUf());
+            textIbgeResultado.setText(tarefaAtual.getIbge());
+            textDddResultado.setText(tarefaAtual.getDdd());
+            textGiaResultado.setText(tarefaAtual.getGia());
+            textSiafiResultado.setText(tarefaAtual.getSiafi());
+
+            estadoPesquisa = 2;
+
+            buttonPesquisar.setVisibility(View.GONE);
+            editNumeroCep.setVisibility(View.GONE);
+            textInformativo.setVisibility(View.GONE);
+        }
 
     }
 
@@ -159,6 +212,8 @@ public class PesquisarActivity extends AppCompatActivity {
                 textDddResultado.setText(getgsonRespostaRestrofitbody.getDdd());
                 textGiaResultado.setText(getgsonRespostaRestrofitbody.getGia());
                 textSiafiResultado.setText(getgsonRespostaRestrofitbody.getSiafi());
+
+                estadoPesquisa = 1;
             }
 
             @Override
@@ -188,7 +243,10 @@ public class PesquisarActivity extends AppCompatActivity {
 
             enderecosSalvosDAO.salvar(postsCep);
 
+            estadoPesquisa = 2;
+
         }
     }
+
 
 }

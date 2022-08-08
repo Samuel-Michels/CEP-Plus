@@ -42,4 +42,7 @@ dependencies {
 
     //Fab
     implementation 'com.github.clans:fab:1.6.4'
+
+    //Anuncios
+    //implementation 'com.google.android.gms:play-services-ads:21.1.0'
 }

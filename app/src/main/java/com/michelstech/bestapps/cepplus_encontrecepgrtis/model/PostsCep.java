@@ -1,6 +1,8 @@
 package com.michelstech.bestapps.cepplus_encontrecepgrtis.model;
 
-public class PostsCep {
+import java.io.Serializable;
+
+public class PostsCep implements Serializable {
      private String cep,
              logradouro,
              complemento,
